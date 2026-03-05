@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Panier d'achat</title>
+<head>
+<style>
+body{
+font-family: Arial;
+}
+
+.card-body{
+display:flex;
+align-items:center;
+gap:20px;
+margin:15px;
+border:1px solid #bc1e1e;
+padding:10px;
+}
+
+img{
+width:80px;
+height:80px;
+object-fit:cover;
+}
+
+button{
+padding:5px 10px;
+cursor:pointer;
+}
+
+.heart{
+font-size:20px;
+cursor:pointer;
+}
+
+.total{
+font-size:22px;
+margin:20px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Mon Panier</h2>
+
+<div class="card-body">
+<img src="baskets.png">
+<p class="name">Chaussures</p>
+<p class="unit-price">50</p>
+<button class="minus">-</button>
+<span class="quantity">1</span>
+<button class="plus">+</button>
+<button class="delete">Supprimer</button>
+<span class="heart">❤</span>
+</div>
+
+<div class="card-body">
+<img src="bag.png">
+<p class="name">Sac</p>
+<p class="unit-price">30</p>
+<button class="minus">-</button>
+<span class="quantity">1</span>
+<button class="plus">+</button>
+<button class="delete">Supprimer</button>
+<span class="heart">❤</span>
+</div>
+
+<div class="card-body">
+<img src="socks.png">
+<p class="name">Chaussettes</p>
+<p class="unit-price">20</p>
+<button class="minus">-</button>
+<span class="quantity">1</span>
+<button class="plus">+</button>
+<button class="delete">Supprimer</button>
+<span class="heart">❤</span>
+</div>
+
+<h3 class="total">Total : 0 $</h3>
+
+<script>
+
+let plus = document.querySelectorAll(".plus")
+let minus = document.querySelectorAll(".minus")
+let del = document.querySelectorAll(".delete")
+let hearts = document.querySelectorAll(".heart")
+let total = document.querySelector(".total")
+
+function calculTotal(){
+let prices = document.querySelectorAll(".unit-price")
+let quantities = document.querySelectorAll(".quantity")
+let somme = 0
+
+for(let i=0;i<prices.length;i++){
+somme += prices[i].innerText * quantities[i].innerText
+}
+
+total.innerText = "Total : " + somme + " $"
+}
+
+plus.forEach((btn)=>{
+btn.addEventListener("click",function(){
+let q = btn.previousElementSibling
+q.innerText++
+calculTotal()
+})
+})
+
+minus.forEach((btn)=>{
+btn.addEventListener("click",function(){
+let q = btn.nextElementSibling
+if(q.innerText>0){
+q.innerText--
+}
+calculTotal()
+})
+})
+
+del.forEach((btn)=>{
+btn.addEventListener("click",function(){
+btn.parentElement.remove()
+calculTotal()
+})
+})
+
+hearts.forEach((btn)=>{
+btn.addEventListener("click",function(){
+btn.style.color = btn.style.color=="red" ? "black" : "red"
+})
+})
+
+calculTotal()
+
+</script>
+
+</body>
+</html>
